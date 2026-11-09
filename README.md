@@ -1,6 +1,6 @@
-# Technu ERP Server
+# CRM Server
 
-A microservices-based ERP (Enterprise Resource Planning) system built with Spring Boot, Spring Cloud, and MongoDB.
+A microservices-based CRM (Customer Relationship Management) system built with Spring Boot, Spring Cloud, and MongoDB.
 
 ## Architecture
 

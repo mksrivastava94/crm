@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.technu.erp</groupId>
-    <artifactId>technu-erp-server</artifactId>
+    <artifactId>crm</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Technu ERP Server</name>
-    <description>Technu ERP Microservices Parent Project</description>
+    <name>CRM</name>
+    <description>CRM Microservices Parent Project</description>
 
     <modules>
         <module>eureka-server</module>
