@@ -11,9 +11,9 @@ spring:
       server:
         git:
           ignore-local-ssh-settings: true
-          uri: ${GITHUB_CONFIG_URI:https://github.com/nikucse/erp-configuration.git}
-          username: ${GITHUB_USERNAME:}
-          password: ${GITHUB_TOKEN:}
+          uri: ${GITLAB_CONFIG_URI:https://gitlab.com/mohit/erp-configuration.git}
+          username: ${GITLAB_USERNAME:}
+          password: ${GITLAB_TOKEN:}
           clone-on-start: true
           default-label: main
 

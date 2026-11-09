@@ -46,9 +46,9 @@ All sensitive credentials are externalized. Set the following environment variab
 | `JWT_SECRET` | Secret key for JWT token signing | `defaultSecretKeyForLocalDevelopment` |
 | `AWS_ACCESS_KEY` | AWS S3 access key | (required for file-upload-service) |
 | `AWS_SECRET_KEY` | AWS S3 secret key | (required for file-upload-service) |
-| `GITHUB_CONFIG_URI` | Git repository URL for config-server | `https://github.com/nikucse/erp-configuration.git` |
-| `GITHUB_USERNAME` | GitHub username for config-server | (required for config-server) |
-| `GITHUB_TOKEN` | GitHub Personal Access Token | (required for config-server) |
+| `GITLAB_CONFIG_URI` | Git repository URL for config-server | `https://gitlab.com/mohit/erp-configuration.git` |
+| `GITLAB_USERNAME` | GitLab username for config-server | (required for config-server) |
+| `GITLAB_TOKEN` | GitLab Personal Access Token | (required for config-server) |
 
 ### Example: Setting environment variables (Linux/Mac)
 ```bash
@@ -56,9 +56,9 @@ export MONGODB_URI="mongodb://localhost:27017/erpinventory"
 export JWT_SECRET="your-secret-key-here"
 export AWS_ACCESS_KEY="your-aws-access-key"
 export AWS_SECRET_KEY="your-aws-secret-key"
-export GITHUB_CONFIG_URI="https://github.com/your-user/erp-configuration.git"
-export GITHUB_USERNAME="your-github-username"
-export GITHUB_TOKEN="your-github-token"
+export GITLAB_CONFIG_URI="https://gitlab.com/your-user/erp-configuration.git"
+export GITLAB_USERNAME="your-gitlab-username"
+export GITLAB_TOKEN="your-gitlab-token"
 ```
 
 ### Example: Setting environment variables (Windows)
@@ -67,9 +67,9 @@ set MONGODB_URI=mongodb://localhost:27017/erpinventory
 set JWT_SECRET=your-secret-key-here
 set AWS_ACCESS_KEY=your-aws-access-key
 set AWS_SECRET_KEY=your-aws-secret-key
-set GITHUB_CONFIG_URI=https://github.com/your-user/erp-configuration.git
-set GITHUB_USERNAME=your-github-username
-set GITHUB_TOKEN=your-github-token
+set GITLAB_CONFIG_URI=https://gitlab.com/your-user/erp-configuration.git
+set GITLAB_USERNAME=your-gitlab-username
+set GITLAB_TOKEN=your-gitlab-token
 ```
 
 ## Building the Project
@@ -97,7 +97,7 @@ Start the services in the following order:
    cd eureka-server && mvn spring-boot:run
    ```
 
-2. **Config Server** (requires `GITHUB_*` environment variables)
+2. **Config Server** (requires `GITLAB_*` environment variables)
    ```bash
    cd config-server && mvn spring-boot:run
    ```
@@ -116,7 +116,7 @@ Start the services in the following order:
 ## Known Issues
 
 - **order-service**: Missing `model` and `external` packages — requires implementation of entity classes and DTOs.
-- **config-server**: Requires valid GitHub credentials to clone the configuration repository.
+- **config-server**: Requires valid GitLab credentials to clone the configuration repository.
 
 ## Security
 
