@@ -1,0 +1,15 @@
+package com.technu.erp.repository;
+
+import com.technu.erp.model.Expense;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface ExpenseRepository extends MongoRepository<Expense,String> {
+    List<Expense> findAllByOrgId(String orgId);
+    Page<Expense> findAllByOrgId(String orgId, Pageable pageable);
+}

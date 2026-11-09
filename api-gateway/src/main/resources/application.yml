@@ -1,0 +1,225 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8012
+  application:
+    name: gateway
+
+  sleuth:
+    sampler:
+      percentage: 1
+    zipkin:
+      base-url: http://localhost:9411
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        #user service actuator
+        - id: user-service-actuator
+          uri: lb://user
+          predicates:
+            - Path=/user/actuator/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user/(?<segment>.*), /$\{segment}
+        #user service routes
+        - id: user-service
+          uri: lb://user
+          predicates:
+            - Path=/api/v1/user/**
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        #public user service routes
+        - id: public-user-service
+          uri: lb://user
+          predicates:
+            - Path=/api/v1/public/**
+          filters:
+            - RemoveRequestHeader=Cookie
+        #profile service routes
+        - id: profile-service
+          uri: lb://profile
+          predicates:
+            - Path=/api/v1/profile/**
+            #- Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        #profile service actuator
+        - id: profile-service-actuator
+          uri: lb://profile
+          predicates:
+            - Path=/profile-service/actuator/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/profile-service/(?<segment>.*), /$\{segment}
+        # Employee Service Api
+        - id: employee-service
+          uri: lb://employee
+          predicates:
+            - Path=/api/v1/employee/**
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        #employee service actuator
+        - id: employee-service-actuator
+          uri: lb://employee
+          predicates:
+            - Path=/employee/actuator/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/employee/(?<segment>.*), /$\{segment}
+         #Vendor Service Api
+        - id: vendor-service
+          uri: lb://vendor
+          predicates:
+            - Path=/api/v1/vendor/**
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        #vendor service actuator
+        - id: vendor-service-actuator
+          uri: lb://vendor
+          predicates:
+            - Path=/vendor/actuator/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/vendor/(?<segment>.*), /$\{segment}
+        #expensive Service Api
+        - id: expense-service
+          uri: lb://expense
+          predicates:
+            - Path=/api/v1/expensive/**
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        #expensive service actuator
+        - id: expense-service-actuator
+          uri: lb://expense
+          predicates:
+            - Path=/expense/actuator/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/expense-service/(?<segment>.*), /$\{segment}
+        #order Service Api
+        - id: order-service
+          uri: lb://order
+          predicates:
+            - Path=/api/v1/order/**
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        #order service actuator
+        - id: order-service-actuator
+          uri: lb://order
+          predicates:
+            - Path=/order/actuator/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+#        #purchasebill Service Api
+        - id: purchasebill-service
+          uri: lb://purchase
+          predicates:
+            - Path=/api/v1/purchase-product/**
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        #purchasebill service actuator
+        - id: purchasebill-service-actuator
+          uri: lb://purchase
+          predicates:
+            - Path=/purchase/actuator/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/purchase-service/(?<segment>.*), /$\{segment}
+        #salebill Service Api
+#        - id: salebill-service
+#          uri: lb://salebill-service
+#          predicates:
+#            - Path=/api/v1/salebill/**
+#            - Header=Authorization, Bearer (.*)
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - AuthorizationHeaderFilter
+#        #salebill service actuator
+#        - id: salebill-service-actuator
+#          uri: lb://salebill-service
+#          predicates:
+#            - Path=/salebill-service/actuator/**
+#            - Method=GET
+#          filters:
+#            - RemoveRequestHeader=Cookie
+#            - RewritePath=/salebill-service/(?<segment>.*), /$\{segment}
+        #product Service Api
+        - id: product-service
+          uri: lb://product
+          predicates:
+            - Path=/api/v1/product/**
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        #product service actuator
+        - id: product-service-actuator
+          uri: lb://product
+          predicates:
+            - Path=/product/actuator/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/product-service/(?<segment>.*), /$\{segment}
+        #material Service Api
+        - id: material-service
+          uri: lb://material
+          predicates:
+            - Path=/api/v1/material/**
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        #material service actuator
+        - id: material-service-actuator
+          uri: lb://material
+          predicates:
+            - Path=/material/actuator/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/material-service/(?<segment>.*), /$\{segment}
+
+        #client Service Api
+        - id: client-service
+          uri: lb://client
+          predicates:
+            - Path=/api/v1/client/**
+            - Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        #client service actuator
+        - id: client-service-actuator
+          uri: lb://client
+          predicates:
+            - Path=/client/actuator/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/client/(?<segment>.*), /$\{segment}

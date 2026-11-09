@@ -1,0 +1,36 @@
+#Data base connection with mongoDB atlas
+spring:
+  application:
+    name: client
+  profiles:
+    active: prod
+  config:
+    import: optional:configserver:http://localhost:8012
+
+  data:
+    mongodb:
+      database: erpinventory
+      authentication-database: admin
+      uri: ${MONGODB_URI:mongodb://localhost:27017/erpinventory}
+
+  sleuth:
+    sampler:
+      percentage: 1
+  zipkin:
+    base-url: http://localhost:9411
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      userService:
+        failureRateThreshold: 50
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 10000ms
+        slidingWindowSize: 2
+        slidingWindowType: COUNT_BASED
+        minimumNumberOfCalls: 5
+        eventConsumerBufferSize: 10
+        permitted-number-of-calls-in-half-open-state: 2
+    configs:
+      default:
+        register-health-indicator: true
