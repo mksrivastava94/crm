@@ -42,50 +42,51 @@ All sensitive credentials are externalized. Set the following environment variab
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/erpinventory` |
+| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/crminventory` |
 | `JWT_SECRET` | Secret key for JWT token signing | `defaultSecretKeyForLocalDevelopment` |
 | `AWS_ACCESS_KEY` | AWS S3 access key | (required for file-upload-service) |
 | `AWS_SECRET_KEY` | AWS S3 secret key | (required for file-upload-service) |
-| `GITLAB_CONFIG_URI` | Git repository URL for config-server | `https://gitlab.com/mohit/erp-configuration.git` |
+| `GITLAB_CONFIG_URI` | Git repository URL for config-server | `https://gitlab.com/mohit/crm-configuration.git` |
 | `GITLAB_USERNAME` | GitLab username for config-server | (required for config-server) |
 | `GITLAB_TOKEN` | GitLab Personal Access Token | (required for config-server) |
 
 ### Example: Setting environment variables (Linux/Mac)
 ```bash
-export MONGODB_URI="mongodb://localhost:27017/erpinventory"
+export MONGODB_URI="mongodb://localhost:27017/crminventory"
 export JWT_SECRET="your-secret-key-here"
 export AWS_ACCESS_KEY="your-aws-access-key"
 export AWS_SECRET_KEY="your-aws-secret-key"
-export GITLAB_CONFIG_URI="https://gitlab.com/your-user/erp-configuration.git"
+export GITLAB_CONFIG_URI="https://gitlab.com/your-user/crm-configuration.git"
 export GITLAB_USERNAME="your-gitlab-username"
 export GITLAB_TOKEN="your-gitlab-token"
 ```
 
 ### Example: Setting environment variables (Windows)
 ```cmd
-set MONGODB_URI=mongodb://localhost:27017/erpinventory
+set MONGODB_URI=mongodb://localhost:27017/crminventory
 set JWT_SECRET=your-secret-key-here
 set AWS_ACCESS_KEY=your-aws-access-key
 set AWS_SECRET_KEY=your-aws-secret-key
-set GITLAB_CONFIG_URI=https://gitlab.com/your-user/erp-configuration.git
+set GITLAB_CONFIG_URI=https://gitlab.com/your-user/crm-configuration.git
 set GITLAB_USERNAME=your-gitlab-username
 set GITLAB_TOKEN=your-gitlab-token
 ```
 
 ## Building the Project
 
-Each microservice is built independently:
+The project uses a Maven multi-module structure with `com.crm.erp` as the base package.
+
+Build all services from the root directory:
+
+```bash
+mvn clean package -DskipTests
+```
+
+Build a single service:
 
 ```bash
 cd <service-name>
 mvn clean package
-```
-
-Or build all services:
-```bash
-for service in eureka-server config-server api-gateway user-service client-service employee-service expense-service file-upload-service material-service order-service product-service profile-service purchase-service sale-service vendor-service; do
-  cd $service && mvn clean package && cd ..
-done
 ```
 
 ## Running the Application

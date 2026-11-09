@@ -17,9 +17,9 @@ spring:
 
   data:
     mongodb:
-      database: erpinventory
+      database: crminventory
       authentication-database: admin
-      uri: ${MONGODB_URI:mongodb://localhost:27017/erpinventory}
+      uri: ${MONGODB_URI:mongodb://localhost:27017/crminventory}
       
 
 resilience4j:
